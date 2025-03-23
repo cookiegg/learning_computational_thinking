@@ -166,12 +166,18 @@ def is_leapyear(year):
 + 每个月天数不一定，需要计算月份天数
 
 对上述需求抽象一下分别对应:
-+ days(month)
++ days(year,month)
   + 每个月天数不一定，需要计算月份天数
 + header
   + 首先一行要显示当前月份
   + 然后是打印星期名称
 + layouts()
   + 安排月内每天的表格位置
-+ 打印表格
++ 打印
 
+```python
+def print_one_month(year,month,first):
+    days_num = days(year,month)
+    print_header(month)
+    
+```
