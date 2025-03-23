@@ -174,10 +174,12 @@ def is_leapyear(year):
 + layouts()
   + 安排月内每天的表格位置
 + 打印
++ 计算下一个月的第一天是星期几,并返回,以便后续计算
 
 ```python
 def print_one_month(year,month,first):
     days_num = days(year,month)
+    next_first = cal_next_first(days_num,first)
     print_header(month)
-    
+    print_every_of_month(month,days_num,first)  
 ```
