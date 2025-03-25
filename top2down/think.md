@@ -174,10 +174,46 @@ def is_leapyear(year):
 + layouts()
   + 安排月内每天的表格位置
 + 打印
++ 计算下一个月的第一天是星期几,并返回,以便后续计算
 
 ```python
 def print_one_month(year,month,first):
     days_num = days(year,month)
+    next_first = next_month_first(days_num,first)
     print_header(month)
-
+    print_every_of_month(month,days_num,first)  
 ```
+
+#### days 的实现
++ 总体思路: 
+    + 主要判断大小月，
+    + 以及是否闰年，闰年2月需要多加一天
+
+```python
+def days(year,month):
+    if month in (1,3,5,7,8,10,12):
+        days_num=31
+    elif month == 2:
+        if is_leapyear(year):
+            days_num = 29
+        else:
+            days_num = 28
+    else:
+        days_num = 30
+```
+
+可以看到这里同样出现需要判断某一年是否是闰年的任务，这时候，可以直接用之前已经定义好的is_leapyear函数， 这也告诉我们，将一些重复使用的功能抽象出来，定义为函数，可以提高代码复用，减少重复编写相同的代码块。
+
+#### next_month_first的实现
+输入的first是当前月份的第一天的星期数， 
+
+```python
+def next_month_first(days_num,first):
+    return first + (days_num % 7)
+```
+
+#### 打印日历表格的功能实现
++ 每个月的日历是一个标题为 month， 
++ 一共7列的一个表格
++ 所以这里可以抽象为如何打印一个表格
+    + 对于日历这样的简单实现(刚开始实现不要盲目增加复杂度，先完成，然后再慢慢完善)表格有行数，列数，每列宽度三个属性
