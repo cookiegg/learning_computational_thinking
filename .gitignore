@@ -2,6 +2,7 @@
 .idea/
 .vscode/
 .env
+.venv/
 docker-compose.yml
 
 # 依赖目录

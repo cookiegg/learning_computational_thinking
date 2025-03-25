@@ -154,7 +154,7 @@ def is_leapyear(year):
  每个月的日历显示形式如下
 
               X月
- |Mon|Tue|Wen|Tur|Fri|Sat|Sun|
+ |Sun|Mon|Tue|Wen|Tur|Fri|Sat|
  |---|---|---|---|---|---|---|
  |||x|x|x|x|x|
  ||||...||||
@@ -212,8 +212,44 @@ def next_month_first(days_num,first):
     return first + (days_num % 7)
 ```
 
-#### 打印日历表格的功能实现
+#### print_every_of_month打印日历表格的功能实现
 + 每个月的日历是一个标题为 month， 
 + 一共7列的一个表格
 + 所以这里可以抽象为如何打印一个表格
-    + 对于日历这样的简单实现(刚开始实现不要盲目增加复杂度，先完成，然后再慢慢完善)表格有行数，列数，每列宽度三个属性
+    + 表格分为数据data与样式，
+    + 对于日历这样的简单实现(刚开始实现不要盲目增加复杂度，先完成，然后再慢慢完善)表格有行数，列数，每列宽度三个属性，定义一个打印指定行数列数宽度的表格函数 print_table(data,row,col,width)
+    + 日历项目中列数很简单，设置为7
+    + 行数需要进行计算，交给函数 rows_month(first,days_num)
+    + 每列宽度要怎么确定，还不太清楚，先不管
+
+对应的print_every_of_month函数代码为:
+```python
+def print_every_of_month(month,days_num,first):
+    cols_num = 7
+    rows_num = rows_month(first,days_num)
+    width = 3 #随便定义的一个单元格宽度，具体是否合适，之后再作调整
+    data
+    print_table(data,row,col,width)
+
+```
+
+#### rows_num 的实现
++ |Sun|Mon|Tue|Wen|Tur|Fri|Sat| 这是每周的星期排列
++ 我们有 first_row = 6-first+1 为第一行的天数
++ if (days_num - first_row) % 7 == 0:
+    rows_num = (days_num - first_row)/7 + 1
+   else:
+     rows_num = (days_num-first_row)/7 + 2
+
+```python
+def cols_num(first,days_num):
+    days_first_row = 6-first+1
+    if (days_num - first_row) % 7 == 0:
+        rows_num = (days_num - first_row)/7 + 1
+    else:
+        # 加上第一行与最后一行
+        rows_num = (days_num-first_row)/7 + 2
+    return rows_num
+```
+
+#### 
